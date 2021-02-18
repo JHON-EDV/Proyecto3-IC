@@ -19,7 +19,7 @@ end;
 
 z=sqrt((1/length(fy))*sum((fy-f).^2,'omitnan')); 
 z1 = sqrt((1/length(fy))*sum((fy-f).^2,'omitnan')); 
-z2 = max(abs(fy-f)); % macima diferencia 
-z3 = (1-(var(fy-f)/var(fy))); %varianzaq relativa del modelo y los datos y solo los datos
+z2 = max(abs(fy-f)); % maxima diferencia 
+z3 = (1-(var(fy-f)/var(fy))); %varianza relativa del modelo y los datos y solo los datos
 z  = (z1*z2)*(1/z3);
 %z2 muy pequeña respecto a z3

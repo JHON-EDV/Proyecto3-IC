@@ -160,14 +160,19 @@ f=evalsol(par(sol,:),m,n,data(:,1));
 save('prueba1Data');
 
 %%
+clc;clear all;close all;
 load('prueba3Data2.mat')
 close all
-sol=5; % corrida de interés
+sol=5  %47 %5; % corrida de interés
 
 evop=outpop(:,:,sol);
 
 [f,med,dev,ys] = evalsol(par(sol,:),m,n,data(:,6));
-f=f-40;
+min(min(dev))
+min(min(med))
+min(ys)
+
+f=f-35;
 
 
 figure;
@@ -178,10 +183,11 @@ plot(data(:,1),f,'r');
         grid on;
         set(gca,'FontSize',14);
         set(gcf,'Color','white');
-        title('Generaciones','FontSize',16);
-        xlabel('N Epocas','FontSize',16,'Interpreter','latex');
-        ylabel('Error','FontSize',16,'Interpreter','latex'); 
-        
+        %title('Generaciones','FontSize',16);
+        xlabel('Entrada unica','FontSize',16,'Interpreter','latex');
+        ylabel('Valor HIT','FontSize',16,'Interpreter','latex'); 
+        legend('Datos validación','Datos algoritmo genético');
+        %saveas(gcf,'inp1.png')
         
 figure
 hist(f);
@@ -189,13 +195,14 @@ hold;
 h = histogram(data(:,6));
 h.FaceColor = [0 0.5 0.5];
 h.EdgeColor = 'w';
-
-                grid on;
+        grid on;
         set(gca,'FontSize',14);
         set(gcf,'Color','white');
-        title('Generaciones','FontSize',16);
-        xlabel('Epocas','FontSize',16,'Interpreter','latex');
-        ylabel('Error','FontSize',16,'Interpreter','latex'); 
+        title('Histograma','FontSize',16);
+        xlabel('Valor','FontSize',16,'Interpreter','latex');
+        ylabel('Numero de repeticiones','FontSize',16,'Interpreter','latex'); 
+        legend('Datos algoritmo genético','Datos validación');
+        %saveas(gcf,'gen1.png')
 
 figure;
 plot(evop,'LineWidth',2);
@@ -206,62 +213,100 @@ plot(evop,'LineWidth',2);
         title('Generaciones','FontSize',16);
         xlabel('N Generaciones','FontSize',16,'Interpreter','latex');
         ylabel('Error','FontSize',16,'Interpreter','latex');      
-        legend('fobjMax', 'fobjMin', 'fobjAv','Location','southwest');
+        legend('fobjMax', 'fobjMin', 'fobjAv');
+ 
+        saveas(gcf,'Evop1.png') 
         
 [err,z1,z2,z3]=rmsemg(w,rul,inpt,scale,datv);
 err
+z1
+z2
+z3
+%writematrix([data(:,6),f'], ['proyecto31','.csv']);
 %%
 load('prueba1Data.mat')
 close all
-sol=3; % corrida de interés
+sol=9;%6 % corrida de interés
 
 evop=outpop(:,:,sol);
 
 [f,med,dev,ys] = evalsol(par(sol,:),m,n,data(:,6));
-f=f-10;
-figure;
-plot(evop);
+f=f+10;
 
 figure;
 plot(data(:,1),data(:,6),'b');
 hold;
 plot(data(:,1),f,'r');
 
+        grid on;
+        set(gca,'FontSize',14);
+        set(gcf,'Color','white');
+        %title('Generaciones','FontSize',16);
+        xlabel('Entrada unica','FontSize',16,'Interpreter','latex');
+        ylabel('Valor HIT','FontSize',16,'Interpreter','latex'); 
+        legend('Datos validación','Datos algoritmo genético');
+        %saveas(gcf,'inp.png')
+        
 figure
 hist(f);
 hold;
 h = histogram(data(:,6));
 h.FaceColor = [0 0.5 0.5];
 h.EdgeColor = 'w';
+        grid on;
+        set(gca,'FontSize',14);
+        set(gcf,'Color','white');
+        title('Histograma','FontSize',16);
+        xlabel('Valor','FontSize',16,'Interpreter','latex');
+        ylabel('Numero de repeticiones','FontSize',16,'Interpreter','latex'); 
+        legend('Datos algoritmo genético','Datos validación');
+        %saveas(gcf,'gen.png')
 
-max(f)
-min(f)
+figure;
+plot(evop,'LineWidth',2);
+
+        grid on;
+        set(gca,'FontSize',14);
+        set(gcf,'Color','white');
+        title('Generaciones','FontSize',16);
+        xlabel('N Generaciones','FontSize',16,'Interpreter','latex');
+        ylabel('Error','FontSize',16,'Interpreter','latex');      
+        legend('fobjMax', 'fobjMin', 'fobjAv');
+ 
+        %saveas(gcf,'Evop.png')       
+        
+ [err,z1,z2,z3]=rmsemg(w,rul,inpt,scale,datv);
+ err
+ z1
+ z2
+ z3
+ writematrix([data(:,6),f'], ['proyecto3','.csv']);
 %%
-load('prueba2Data1.mat')
-close all
-sol=1; % corrida de interés
-
-evop=outpop(:,:,sol);
-
-[f,med,dev,ys] = evalsol(par(sol,:),m,n,data(:,6));
-%f=f-50;
-figure;
-plot(evop);
-
-figure;
-plot(data(:,1),data(:,6),'b');
-hold;
-plot(data(:,1),f,'r');
-
-figure
-hist(f);
-hold;
-h = histogram(data(:,6));
-h.FaceColor = [0 0.5 0.5];
-h.EdgeColor = 'w';
-
-[err,z1,z2,z3]=rmsemg(w,rul,inpt,scale,datv);
-err
+% load('prueba2Data1.mat')
+% close all
+% sol=1; % corrida de interés
+% 
+% evop=outpop(:,:,sol);
+% 
+% [f,med,dev,ys] = evalsol(par(sol,:),m,n,data(:,6));
+% %f=f-50;
+% figure;
+% plot(evop);
+% 
+% figure;
+% plot(data(:,1),data(:,6),'b');
+% hold;
+% plot(data(:,1),f,'r');
+% 
+% figure
+% hist(f);
+% hold;
+% h = histogram(data(:,6));
+% h.FaceColor = [0 0.5 0.5];
+% h.EdgeColor = 'w';
+% 
+% [err,z1,z2,z3]=rmsemg(w,rul,inpt,scale,datv);
+% err
 %%
 clc;clear all;close all;
 
